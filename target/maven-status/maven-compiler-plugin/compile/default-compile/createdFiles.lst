@@ -1,0 +1,12 @@
+com\example\entity\User.class
+com\example\repo\UserRepository.class
+com\example\pojo\TestPojo.class
+com\example\testProj\TestProjApplication.class
+com\example\controller\UserController.class
+com\example\pojo\UserRequestData.class
+com\example\testProj\ControllerAdvisor.class
+com\example\testProj\ServletInitializer.class
+com\example\pojo\StatusResponse.class
+com\example\service\UserServiceImpl.class
+com\example\service\UserService.class
+com\example\pojo\Responce.class
