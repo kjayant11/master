@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 		if(Optional.ofNullable(request.getDob()).isPresent()) {
 			String tmp[] = request.getDob().split("-");
 			if(tmp.length != 0) {
-				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("0000")) {
 					throw new Exception();
 				}
 			}
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 		if(Optional.ofNullable(request.getJoiningDate()).isPresent()) {
 			String tmp[] = request.getJoiningDate().split("-");
 			if(tmp.length != 0) {
-				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("0000")) {
 					throw new Exception();
 				}
 			}
@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
 		if(Optional.ofNullable(request.getDob()).isPresent()) {
 			String tmp[] = request.getDob().split("-");
 			if(tmp.length != 0) {
-				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("0000")) {
 					throw new Exception();
 				}
 			}
@@ -175,7 +175,7 @@ public class UserServiceImpl implements UserService {
 		if(Optional.ofNullable(request.getJoiningDate()).isPresent()) {
 			String tmp[] = request.getJoiningDate().split("-");
 			if(tmp.length != 0) {
-				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("0000")) {
 					throw new Exception();
 				}
 			}
