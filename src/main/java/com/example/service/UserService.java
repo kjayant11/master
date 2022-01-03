@@ -11,7 +11,7 @@ import com.example.pojo.UserRequestData;
 
 public interface UserService {
 	
-	public Responce insertUser(UserRequestData request ) throws ParseException;
+	public Responce insertUser(UserRequestData request ) throws ParseException, Exception;
 
 	public ResponseEntity<List<User>> searchUser(String name, String surName, Integer pinCode) throws Exception;
 

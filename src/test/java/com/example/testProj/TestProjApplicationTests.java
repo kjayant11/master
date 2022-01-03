@@ -25,7 +25,7 @@ public class TestProjApplicationTests {
 	UserService emailService;
 
 	@Test
-	public void insertUser() throws ParseException {
+	public void insertUser() throws Exception {
 		UserRequestData user = new UserRequestData();
 		user.setName("hello");
 		user.setDob("22-01-1999");

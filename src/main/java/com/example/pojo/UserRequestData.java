@@ -17,7 +17,7 @@ public class UserRequestData {
 	private String name;
 	
 	@NotNull
-	@Size(min = 6, max = 6)
+//	@Size(min = 6, max = 6)
 	private Integer pinCode;
 	
 	@NotEmpty

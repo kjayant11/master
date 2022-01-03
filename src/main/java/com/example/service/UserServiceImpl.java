@@ -4,9 +4,11 @@ import java.io.FileReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -30,6 +32,9 @@ import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	private static Pattern DATE_PATTERN = Pattern.compile(
+		      "^\\d{2}-\\d{2}-\\d{4}$");
 
 	@Autowired 
 	UserRepository userRepository ;
@@ -37,20 +42,49 @@ public class UserServiceImpl implements UserService {
 	private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class.getName());
 
 	@Override
-	public  Responce insertUser(UserRequestData request) throws ParseException {
+	public  Responce insertUser(UserRequestData request) throws Exception {
 		User user = new User();
 		BeanUtils.copyProperties(request, user);
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		if(Optional.ofNullable(request.getDob()).isPresent()) {
-			user.setDob(format.parse(request.getDob()));
+			String tmp[] = request.getDob().split("-");
+			if(tmp.length != 0) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+					throw new Exception();
+				}
+			}
+			if(new Date().after(format.parse(request.getDob()))) {
+				if(DATE_PATTERN.matcher(request.getDob()).matches()) {
+					user.setDob(format.parse(request.getDob()));
+				}else {
+					throw new Exception();
+				}
+			}else {
+				throw new Exception();
+			}
 		}
 		
 		if(Optional.ofNullable(request.getJoiningDate()).isPresent()) {
-			user.setJoiningDate(format.parse(request.getJoiningDate()));
+			String tmp[] = request.getJoiningDate().split("-");
+			if(tmp.length != 0) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+					throw new Exception();
+				}
+			}
+			if(format.parse(request.getDob()).after(format.parse(request.getJoiningDate()))) {
+				if(DATE_PATTERN.matcher(request.getJoiningDate()).matches()) {
+					user.setJoiningDate(format.parse(request.getJoiningDate()));
+				}else {
+					throw new Exception();
+				}
+			}else {
+				throw new Exception();
+			}
 		}
 		System.out.println("user++++++++++++++++++++++++++++++++++++++++++++++++++" + user.getName());
 		if(user != null) {
-			userRepository.save(user) ;
+			user.setDeleted(false);
+			userRepository.save(user);
 		}
 
 		Responce res = new Responce() ;
@@ -95,7 +129,7 @@ public class UserServiceImpl implements UserService {
 		if(type.equalsIgnoreCase("hard")) {
 			userRepository.delete(id);
 		}else if(type.equalsIgnoreCase("soft")) {
-			User user = userRepository.findOne(id);
+			User user = userRepository.findByIdAndDeleted(id, false);
 			if(!Optional.ofNullable(user).isPresent()) {
 				throw new ObjectNotFoundException("Not Found");
 			}
@@ -121,11 +155,39 @@ public class UserServiceImpl implements UserService {
 		BeanUtils.copyProperties(request, user);
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		if(Optional.ofNullable(request.getDob()).isPresent()) {
-			user.setDob(format.parse(request.getDob()));
+			String tmp[] = request.getDob().split("-");
+			if(tmp.length != 0) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+					throw new Exception();
+				}
+			}
+			if(new Date().after(format.parse(request.getDob()))) {
+				if(DATE_PATTERN.matcher(request.getDob()).matches()) {
+					user.setDob(format.parse(request.getDob()));
+				}else {
+					throw new Exception();
+				}
+			}else {
+				throw new Exception();
+			}
 		}
 		
 		if(Optional.ofNullable(request.getJoiningDate()).isPresent()) {
-			user.setJoiningDate(format.parse(request.getJoiningDate()));
+			String tmp[] = request.getJoiningDate().split("-");
+			if(tmp.length != 0) {
+				if(tmp[0].equals("00") || tmp[1].equals("00") || tmp[2].equals("00")) {
+					throw new Exception();
+				}
+			}
+			if(format.parse(request.getDob()).after(format.parse(request.getJoiningDate()))) {
+				if(DATE_PATTERN.matcher(request.getJoiningDate()).matches()) {
+					user.setJoiningDate(format.parse(request.getJoiningDate()));
+				}else {
+					throw new Exception();
+				}
+			}else {
+				throw new Exception();
+			}
 		}
 		System.out.println("user++++++++++++++++++++++++++++++++++++++++++++++++++" + user.getName());
 		if(user != null) {
