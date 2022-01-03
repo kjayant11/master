@@ -15,12 +15,12 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "user_master")
-@SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=1)
+//@SequenceGenerator(name="my_seq",sequenceName="MY_SEQ", allocationSize=1)
 public class User {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="my_seq")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	
 	@Column(name="name")
 	private String name;
@@ -29,7 +29,7 @@ public class User {
 	private String surName;
 	
 	@Column(name="pin_code")
-	private int pinCode;
+	private Integer pinCode;
 	
 	@Column(name="dob")
 	private Date dob;

@@ -18,4 +18,6 @@ public interface UserService {
 	public ResponseEntity<Responce> deleteUser(String type, Integer id) throws Exception;
 
 	public ResponseEntity<List<User>> sortUser() throws Exception;
+
+	public Responce userUpdate(UserRequestData userRequestData) throws ParseException, Exception;
 }

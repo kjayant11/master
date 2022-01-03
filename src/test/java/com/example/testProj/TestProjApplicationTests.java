@@ -34,6 +34,18 @@ public class TestProjApplicationTests {
 		Assert.assertNotNull("name should not be null", user.getName());
 		Assert.assertEquals("save data sucessfully", testName.getStatus());
 	}
+	
+	@Test
+	public void updateUser() throws Exception {
+		UserRequestData user = new UserRequestData();
+		user.setUserId(1);
+		user.setDob("22-01-1999");
+		user.setJoiningDate("20-02-2022");
+		Assert.assertNull(user.getUserId());
+		Responce testName = emailService.userUpdate(user);
+		Assert.assertNotNull("name should not be null", user.getName());
+		Assert.assertEquals("save data sucessfully", testName.getStatus());
+	}
 
 	@Test
 	public void searchUser() throws Exception {

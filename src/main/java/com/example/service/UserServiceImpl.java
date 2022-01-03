@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
 	public  Responce insertUser(UserRequestData request) throws ParseException {
 		User user = new User();
 		BeanUtils.copyProperties(request, user);
-		user.setId(request.getUserId());
 		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
 		if(Optional.ofNullable(request.getDob()).isPresent()) {
 			user.setDob(format.parse(request.getDob()));
@@ -57,7 +56,6 @@ public class UserServiceImpl implements UserService {
 		Responce res = new Responce() ;
 		res.setStatus("save data sucessfully");
 		return res ;
-
 	}
 
 	@Override
@@ -108,5 +106,34 @@ public class UserServiceImpl implements UserService {
 		Responce res = new Responce();
 		res.setStatus("Success");
 		return new ResponseEntity<>(res,HttpStatus.OK);
+	}
+
+	@Override
+	public Responce userUpdate(UserRequestData request) throws Exception {
+		User user = null;
+		if(request.getUserId() != null) {
+			user = userRepository.findById(request.getUserId());
+		}
+		
+		if(!Optional.ofNullable(user).isPresent()) {
+			throw new ObjectNotFoundException("Data Not Found");
+		}
+		BeanUtils.copyProperties(request, user);
+		SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+		if(Optional.ofNullable(request.getDob()).isPresent()) {
+			user.setDob(format.parse(request.getDob()));
+		}
+		
+		if(Optional.ofNullable(request.getJoiningDate()).isPresent()) {
+			user.setJoiningDate(format.parse(request.getJoiningDate()));
+		}
+		System.out.println("user++++++++++++++++++++++++++++++++++++++++++++++++++" + user.getName());
+		if(user != null) {
+			userRepository.save(user) ;
+		}
+
+		Responce res = new Responce() ;
+		res.setStatus("update data sucessfully");
+		return res ;
 	}
 }

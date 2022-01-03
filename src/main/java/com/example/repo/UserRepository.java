@@ -11,7 +11,7 @@ import com.example.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-	User findById(int userId);
+	User findById(Integer userId);
 
 	List<User> findByNameEqualsIgnoreCaseOrPinCodeEqualsOrSurNameEqualsIgnoreCase(String name, Integer pinCode,String surName);
 	
